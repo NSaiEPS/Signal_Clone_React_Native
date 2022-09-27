@@ -7,6 +7,7 @@ import LoginScreen from './screens/LoginScreen';
 import { Button, Input, Image } from 'react-native-elements';
 import RegisterScreen from './screens/RegisterScreen';
 import HomeScreen from './screens/HomeScreen';
+import AddChat from './screens/AddChat';
 
 
 export default function App() {
@@ -51,6 +52,13 @@ screenOptions={globalScreenOptions}
         name="Home" component={HomeScreen} 
       
         />
+
+<Stack.Screen 
+        name="AddChat" component={AddChat} 
+      
+        />
+
+
         
       </Stack.Navigator>
     

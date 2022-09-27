@@ -12,17 +12,21 @@ const LoginScreen = ({navigation}) => {
    const [password,setPassword]=useState('')
 
  useEffect(()=>{
- const unsubscribe =auth.onAuthStateChanged((authUser)=>{
+ auth.onAuthStateChanged((authUser)=>{
   // console.log(authUser)
   if(authUser){
     navigation.replace("Home")
   }
  })
 
- return unsubscribe;
+//  return unsubscribe;
  },[])
 
   const SignIn=()=>{
+    auth.signInWithEmailAndPassword(email,password)
+     
+ .catch(error=>alert(error))
+    
 
   }
 
@@ -77,6 +81,7 @@ const LoginScreen = ({navigation}) => {
     onChangeText={(text)=>{
         setPassword(text)
     }}
+    onSubmitEditing={SignIn}
     />
 
   </View>
