@@ -1,6 +1,8 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import * as firebase from 'firebase/compat';
+// import 'firebase/compat/auth';
+import  "firebase/auth";
+import  "firebase/firestore";
+// import 'firebase/compat/firestore';
 
 
 const firebaseConfig = {
@@ -13,9 +15,19 @@ const firebaseConfig = {
   measurementId: "G-4WDL58NT1P"
 };
 
-const firebaseApp=firebase.initializeApp(firebaseConfig)
-const db=firebaseApp.firestore()
-const auth=firebase.auth()
-const provider= new firebase.auth.GoogleAuthProvider();
 
-export  {db,auth,provider};
+let app;
+if(firebase.apps.length===0){
+
+
+app=firebase.initializeApp(firebaseConfig)
+}
+else {
+  app=firebase.app()
+}
+
+const db=app.firestore()
+const auth=firebase.auth()
+// const provider= new firebase.auth.GoogleAuthProvider();
+
+export  {db,auth};

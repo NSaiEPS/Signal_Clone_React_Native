@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './screens/LoginScreen';
 import { Button, Input, Image } from 'react-native-elements';
 import RegisterScreen from './screens/RegisterScreen';
+import HomeScreen from './screens/HomeScreen';
 
 
 export default function App() {
@@ -44,6 +45,13 @@ screenOptions={globalScreenOptions}
         name="Register" component={RegisterScreen} 
       
         />
+
+
+<Stack.Screen 
+        name="Home" component={HomeScreen} 
+      
+        />
+        
       </Stack.Navigator>
     
     

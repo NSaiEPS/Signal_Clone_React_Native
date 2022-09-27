@@ -1,7 +1,8 @@
 import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { Button, Image, Input } from 'react-native-elements';
+import { auth } from '../Firebase'
 
 const LoginScreen = ({navigation}) => {
 
@@ -9,6 +10,17 @@ const LoginScreen = ({navigation}) => {
 
    const [email,setEmail]=useState('')
    const [password,setPassword]=useState('')
+
+ useEffect(()=>{
+ const unsubscribe =auth.onAuthStateChanged((authUser)=>{
+  // console.log(authUser)
+  if(authUser){
+    navigation.replace("Home")
+  }
+ })
+
+ return unsubscribe;
+ },[])
 
   const SignIn=()=>{
 
