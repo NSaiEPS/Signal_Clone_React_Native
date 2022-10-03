@@ -1,16 +1,43 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Avatar, ListItem } from 'react-native-elements'
+import { db } from '../Firebase';
 
 const CustomList = ({id, chatName,enterChat}) => {
+
+   const [chatMessages, setChatMessages]=useState([]);
+  //  console.log(chatMessages?.[0]?.displayName,'now')
+
+   useEffect(()=>{
+    const unsubscribe= db.collection('chats').doc(id).collection('messages').orderBy('timestamp','desc')
+    .onSnapshot((snap)=>(
+      setChatMessages(snap.docs.map((data)=>({
+        id:data.id,
+        data:data.data()
+      })))
+    ))
+
+    return unsubscribe;
+   })
+
+
   return (
-    <ListItem>
+    <ListItem
+    key={id}
+    bottomDivider
+    onPress={()=>{
+      enterChat(id,chatName)
+    }}
+    
+    >
        
  <Avatar 
  rounded
  source={
     {
-        uri:'https://static.vecteezy.com/system/resources/previews/002/640/730/non_2x/default-avatar-placeholder-profile-icon-male-vector.jpg'
+        uri: chatMessages?.[0]?.photoURL ||
+        
+        'https://static.vecteezy.com/system/resources/previews/002/640/730/non_2x/default-avatar-placeholder-profile-icon-male-vector.jpg'
     }
  }
  />
@@ -21,7 +48,7 @@ const CustomList = ({id, chatName,enterChat}) => {
         fontWeight:'800'
     }}
     >
-        YouTube Chat
+        {chatName}
 
     </ListItem.Title>
    <ListItem.Subtitle
@@ -30,7 +57,7 @@ const CustomList = ({id, chatName,enterChat}) => {
 
    ellipsizeMode='tail'
    >
-    This is a test subtitle
+    {chatMessages?.[0].data?.displayName}: {chatMessages?.[0]?.data?.message}
 
    </ListItem.Subtitle>
 

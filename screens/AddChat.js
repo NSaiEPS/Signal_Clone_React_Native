@@ -54,6 +54,7 @@ color='black'
     />
 
     <Button 
+    disabled={!input}
     
     title='Create a new Chat'
     onPress={createChat}
